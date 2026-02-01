@@ -51,30 +51,30 @@ export default function Index() {
     createNewUser(currentUser);
   }, [isLoaded, isSignedIn]);
 
-const createNewUser = async (currentUser: UserResource) => {
-  if (!currentUser) return;
+  const createNewUser = async (currentUser: UserResource) => {
+    if (!currentUser) return;
 
-  const payload = {
-    data: {
-      email: currentUser.primaryEmailAddress?.emailAddress,
-      fullName: currentUser.fullName,
-    },
+    const payload = {
+      data: {
+        email: currentUser.primaryEmailAddress?.emailAddress,
+        fullName: currentUser.fullName,
+      },
+    };
+
+    console.log("Creating user with:", payload);
+
+    try {
+      const res = await axiosClient.post("/api/userlists", payload);
+      console.log("User created:", res.data);
+      router.replace("/(tabs)/Home");
+    } catch (error: any) {
+      console.log(
+        "Error creating user:",
+        error.response?.data || error.message,
+      );
+      router.replace("/(tabs)/Home");
+    }
   };
-
-  console.log("Creating user with:", payload);
-
-  try {
-    const res = await axiosClient.post("/api/userlists", payload);
-    console.log("User created:", res.data);
-  } catch (error: any) {
-    console.error(
-      "User creation error:",
-      error.response?.status,
-      error.response?.data
-    );
-  }
-};
-
 
   const onPress = useCallback(async () => {
     try {
