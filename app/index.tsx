@@ -95,9 +95,6 @@ export default function Index() {
         await setActive!({
           session: createdSessionId,
         });
-
-        // 3. Navigate AFTER the session is active
-        router.replace("/");
       }
     } catch (err) {
       console.error("SSO Error:", JSON.stringify(err, null, 2));
@@ -147,12 +144,6 @@ export default function Index() {
             />
 
             {/* Placeholder - Remove this when you add your image */}
-            <View style={styles.imagePlaceholder}>
-              <Text style={styles.placeholderText}>Your Image Here</Text>
-              <Text style={styles.placeholderSubtext}>
-                (Business Illustration)
-              </Text>
-            </View>
           </View>
         </View>
 
